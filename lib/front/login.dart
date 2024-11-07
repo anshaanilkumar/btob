@@ -143,12 +143,16 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                             validator: (String? value) {
-                              if (value!.length == 0) {
-                                return "Name is empty";
+                              if (value == null || value.trim().isEmpty) {
+                                return "Phone number cannot be empty";
                               }
-                              if (value.contains("@")) {
-                                return "it is not a valid name";
+                              if (!RegExp(r"^\d+$").hasMatch(value)) {
+                                return "Phone number must contain only digits";
                               }
+                              if (value.length != 10) {
+                                return "Phone number must be 10 digits long";
+                              }
+                              return null;
                             },
                           ),
                         ],
